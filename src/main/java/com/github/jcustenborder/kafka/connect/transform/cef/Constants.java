@@ -55,7 +55,7 @@ class Constants {
       )
       .field(
           MESSAGE,
-          SchemaBuilder.string().optional().doc("Unparsed version of the message.").build()
+          SchemaBuilder.string().doc("Unparsed version of the message.").build()
       )
       .field(
           CEFVERSION,
