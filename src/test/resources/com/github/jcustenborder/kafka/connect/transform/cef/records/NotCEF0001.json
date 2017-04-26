@@ -179,7 +179,7 @@
     "sourceOffset" : { },
     "topic" : "syslog",
     "valueSchema" : {
-      "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
+      "name" : "com.github.jcustenborder.kafka.connect.transform.cef.CEFMessage",
       "doc" : "This schema represents a syslog message that is written to Kafka.",
       "type" : "STRUCT",
       "isOptional" : false,
@@ -230,7 +230,7 @@
     },
     "value" : {
       "schema" : {
-        "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
+        "name" : "com.github.jcustenborder.kafka.connect.transform.cef.CEFMessage",
         "doc" : "This schema represents a syslog message that is written to Kafka.",
         "type" : "STRUCT",
         "isOptional" : false,

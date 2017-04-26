@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,6 @@
 package com.github.jcustenborder.kafka.connect.transform.cef;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.github.jcustenborder.cef.Message;
 import com.github.jcustenborder.kafka.connect.utils.jackson.ObjectMapperFactory;
 import com.google.common.collect.ImmutableMap;
 import org.apache.kafka.connect.connector.ConnectRecord;
@@ -27,6 +26,7 @@ import org.apache.kafka.connect.data.Timestamp;
 import org.apache.kafka.connect.source.SourceRecord;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
@@ -120,15 +120,16 @@ public class CEFTransformationTest {
     }));
   }
 
+  @Disabled
   @Test
   public void foo() throws IOException {
     TestCase testCase = new TestCase();
     Struct valueInput = new Struct(VALUE_SCHEMA)
-      .put("date", new Date(1493195158000L))
+        .put("date", new Date(1493195158000L))
         .put("facility", 16)
         .put("host", "filterlog")
         .put("level", 6)
-        .put("message", "filterlog: 5,16777216,,1000000003,igb1,match,block,in,6,0x00,0x00000,255,ICMPv6,58,32,2605:6000:ffc0:96::1,ff02::1:ffab:17b7,")
+        .put("message", "CEF:0|Security|threatmanager|1.0|100|worm successfully stopped|10|src=10.0.0.1 dst=2.1.2.2 spt=1232")
         .put("charset", "utf-8")
         .put("remote_address", "/10.10.0.1:514")
         .put("hostname", "vpn.example.com");
@@ -145,9 +146,10 @@ public class CEFTransformationTest {
         valueInput,
         1493195158000L
     );
-    testCase.expected = testCase.input;
+    testCase.expected = (SourceRecord) this.transformation.apply(testCase.input);
+    ((Struct)testCase.expected.value()).validate();
 
-    File file = new File("/Users/jeremy/source/opensource/kafka-connect/transforms/kafka-connect-transform-cef/src/test/resources/com/github/jcustenborder/kafka/connect/transform/cef/Record0001.json");
+    File file = new File("/Users/jeremy/source/opensource/kafka-connect/transforms/kafka-connect-transform-cef/src/test/resources/com/github/jcustenborder/kafka/connect/transform/cef/records/CEF0001.json");
 
     ObjectMapperFactory.INSTANCE.writeValue(file, testCase);
 

@@ -83,7 +83,7 @@ class Constants {
       )
       .field(
           SEVERITY,
-          SchemaBuilder.int32().doc("The severity of the message.").build()
+          SchemaBuilder.string().doc("The severity of the message.").build()
       )
       .field(
           EXTENSIONS,
