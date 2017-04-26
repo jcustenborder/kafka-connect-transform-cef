@@ -177,7 +177,7 @@
   "expected" : {
     "sourcePartition" : { },
     "sourceOffset" : { },
-    "topic" : "syslog",
+    "topic" : "syslog.cef",
     "valueSchema" : {
       "name" : "com.github.jcustenborder.kafka.connect.transform.cef.CEFMessage",
       "doc" : "The parsed representation of a CEF Message.",
@@ -209,7 +209,7 @@
         "message" : {
           "doc" : "Unparsed version of the message.",
           "type" : "STRING",
-          "isOptional" : true
+          "isOptional" : false
         },
         "cefVersion" : {
           "doc" : "Version of CEF the message is using.",
@@ -293,7 +293,7 @@
           "message" : {
             "doc" : "Unparsed version of the message.",
             "type" : "STRING",
-            "isOptional" : true
+            "isOptional" : false
           },
           "cefVersion" : {
             "doc" : "Version of CEF the message is using.",
@@ -353,35 +353,40 @@
           "type" : "INT64",
           "version" : 1,
           "isOptional" : true
-        }
+        },
+        "storage" : 1493195158000
       }, {
         "name" : "facility",
         "schema" : {
           "doc" : "The facility of the message.",
           "type" : "INT32",
           "isOptional" : true
-        }
+        },
+        "storage" : 16
       }, {
         "name" : "host",
         "schema" : {
           "doc" : "The host of the message.",
           "type" : "STRING",
           "isOptional" : true
-        }
+        },
+        "storage" : "filterlog"
       }, {
         "name" : "level",
         "schema" : {
           "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
           "type" : "INT32",
           "isOptional" : true
-        }
+        },
+        "storage" : 6
       }, {
         "name" : "message",
         "schema" : {
           "doc" : "Unparsed version of the message.",
           "type" : "STRING",
-          "isOptional" : true
-        }
+          "isOptional" : false
+        },
+        "storage" : "CEF:0|security|threatmanager|1.0|100|detected a \\ in packet|10|src=10.0.0.1 act=blocked a \\ dst=1.1.1.1"
       }, {
         "name" : "cefVersion",
         "schema" : {

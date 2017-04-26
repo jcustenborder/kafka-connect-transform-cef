@@ -175,8 +175,11 @@ public class CEFTransformationTest {
       try {
 
         testCase.expected = (SourceRecord) this.transformation.apply(testCase.input);
+
+        fileNameFormat = testCase.expected.topic().equals("syslog.cef") ? "CEF%04d.json" : "NotCEF%04d.json";
+
         ((Struct) testCase.expected.value()).validate();
-        fileNameFormat = "CEF%04d.json";
+//        fileNameFormat = "CEF%04d.json";
       } catch (IllegalStateException ex) {
         fileNameFormat = "NotCEF%04d.json";
         testCase.expected = testCase.input;
@@ -188,7 +191,7 @@ public class CEFTransformationTest {
       String filename = String.format(fileNameFormat, testNumber);
 
       File file = new File(root, filename);
-
+      log.trace("Saving {}", filename);
       ObjectMapperFactory.INSTANCE.writeValue(file, testCase);
 
     }

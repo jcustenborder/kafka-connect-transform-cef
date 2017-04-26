@@ -2,7 +2,7 @@
 
 ## CEFTransformation
 
-Transformation for converting string based CEF messages to 
+Transformation to convert a standard [Syslog](https://en.wikipedia.org/wiki/Syslog) message to a [Common Event Format (CEF)](https://www.protect724.hpe.com/docs/DOC-1072) Syslog struct.
 
 ```properties
 transforms=ceftransformation
