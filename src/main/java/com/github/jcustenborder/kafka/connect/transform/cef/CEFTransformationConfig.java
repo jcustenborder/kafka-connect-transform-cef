@@ -30,6 +30,10 @@ class CEFTransformationConfig extends AbstractConfig {
   static final String FIELD_MESSAGE_DOC = "The field that stores the message.";
   static final String FIELD_MESSAGE_DEFAULT = "message";
 
+  public static final String FIELD_HOST_CONF = "field.host";
+  static final String FIELD_HOST_DOC = "The field that stores the host.";
+  static final String FIELD_HOST_DEFAULT = "host";
+  
   public final String fieldDate;
   public final String fieldMessage;
 
@@ -42,6 +46,7 @@ class CEFTransformationConfig extends AbstractConfig {
   static ConfigDef config() {
     return new ConfigDef()
         .define(FIELD_DATE_CONF, ConfigDef.Type.STRING, FIELD_DATE_DEFAULT, ConfigDef.Importance.HIGH, FIELD_DATE_DOC)
+        .define(FIELD_HOST_CONF, ConfigDef.Type.STRING, FIELD_HOST_DEFAULT, ConfigDef.Importance.HIGH, FIELD_HOST_DOC)
         .define(FIELD_MESSAGE_CONF, ConfigDef.Type.STRING, FIELD_MESSAGE_DEFAULT, ConfigDef.Importance.HIGH, FIELD_MESSAGE_DOC);
   }
 }
