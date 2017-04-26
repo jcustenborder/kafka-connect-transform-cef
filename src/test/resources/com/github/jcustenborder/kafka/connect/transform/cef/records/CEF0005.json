@@ -145,7 +145,7 @@
           "type" : "STRING",
           "isOptional" : true
         },
-        "storage" : "filterlog: 5,16777216,,1000000003,igb1,match,block,in,6,0x00,0x00000,255,ICMPv6,58,32,2605:6000:c00:96::1,ff02::1:ffac:f98,"
+        "storage" : "CEF:0|ArcSight|Logger|5.0.0.5355.2|sensor:115|Logger Internal Event|1|cat=/Monitor/Sensor/Fan5 cs2=Current Value cnt=1 dvc=10.0.0.1 cs3=Ok cs1=null type=0 cs1Label=unit rt=1305034099211 cs3Label=Status cn1Label=value cs2Label=timeframe"
       }, {
         "name" : "charset",
         "schema" : {
@@ -179,8 +179,8 @@
     "sourceOffset" : { },
     "topic" : "syslog",
     "valueSchema" : {
-      "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
-      "doc" : "This schema represents a syslog message that is written to Kafka.",
+      "name" : "com.github.jcustenborder.kafka.connect.transform.cef.CEFMessage",
+      "doc" : "The parsed representation of a CEF Message.",
       "type" : "STRUCT",
       "isOptional" : false,
       "fieldSchemas" : {
@@ -207,31 +207,64 @@
           "isOptional" : true
         },
         "message" : {
-          "doc" : "The text for the message.",
+          "doc" : "Unparsed version of the message.",
           "type" : "STRING",
           "isOptional" : true
         },
-        "charset" : {
-          "doc" : "The character set of the message.",
-          "type" : "STRING",
-          "isOptional" : true
+        "cefVersion" : {
+          "doc" : "Version of CEF the message is using.",
+          "type" : "INT32",
+          "isOptional" : false
         },
-        "remote_address" : {
-          "doc" : "The ip address of the host that sent the syslog message.",
+        "deviceVendor" : {
+          "doc" : "Vendor of the device that logged the message.",
           "type" : "STRING",
-          "isOptional" : true
+          "isOptional" : false
         },
-        "hostname" : {
-          "doc" : "The reverse DNS of the `remote_address` field.",
+        "deviceProduct" : {
+          "doc" : "The product that logged the message.",
           "type" : "STRING",
-          "isOptional" : true
+          "isOptional" : false
+        },
+        "deviceVersion" : {
+          "doc" : "The version of the device that is logging the message.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "deviceEventClassId" : {
+          "doc" : "The internal event id for the message.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "name" : {
+          "doc" : "Name of the event. This is typically a short description.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "severity" : {
+          "doc" : "The severity of the message.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "extensions" : {
+          "doc" : "Key value pairs of any extensions to the message.",
+          "type" : "MAP",
+          "isOptional" : true,
+          "keySchema" : {
+            "type" : "STRING",
+            "isOptional" : false
+          },
+          "valueSchema" : {
+            "type" : "STRING",
+            "isOptional" : false
+          }
         }
       }
     },
     "value" : {
       "schema" : {
-        "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
-        "doc" : "This schema represents a syslog message that is written to Kafka.",
+        "name" : "com.github.jcustenborder.kafka.connect.transform.cef.CEFMessage",
+        "doc" : "The parsed representation of a CEF Message.",
         "type" : "STRUCT",
         "isOptional" : false,
         "fieldSchemas" : {
@@ -258,24 +291,57 @@
             "isOptional" : true
           },
           "message" : {
-            "doc" : "The text for the message.",
+            "doc" : "Unparsed version of the message.",
             "type" : "STRING",
             "isOptional" : true
           },
-          "charset" : {
-            "doc" : "The character set of the message.",
-            "type" : "STRING",
-            "isOptional" : true
+          "cefVersion" : {
+            "doc" : "Version of CEF the message is using.",
+            "type" : "INT32",
+            "isOptional" : false
           },
-          "remote_address" : {
-            "doc" : "The ip address of the host that sent the syslog message.",
+          "deviceVendor" : {
+            "doc" : "Vendor of the device that logged the message.",
             "type" : "STRING",
-            "isOptional" : true
+            "isOptional" : false
           },
-          "hostname" : {
-            "doc" : "The reverse DNS of the `remote_address` field.",
+          "deviceProduct" : {
+            "doc" : "The product that logged the message.",
             "type" : "STRING",
-            "isOptional" : true
+            "isOptional" : false
+          },
+          "deviceVersion" : {
+            "doc" : "The version of the device that is logging the message.",
+            "type" : "STRING",
+            "isOptional" : false
+          },
+          "deviceEventClassId" : {
+            "doc" : "The internal event id for the message.",
+            "type" : "STRING",
+            "isOptional" : false
+          },
+          "name" : {
+            "doc" : "Name of the event. This is typically a short description.",
+            "type" : "STRING",
+            "isOptional" : false
+          },
+          "severity" : {
+            "doc" : "The severity of the message.",
+            "type" : "STRING",
+            "isOptional" : false
+          },
+          "extensions" : {
+            "doc" : "Key value pairs of any extensions to the message.",
+            "type" : "MAP",
+            "isOptional" : true,
+            "keySchema" : {
+              "type" : "STRING",
+              "isOptional" : false
+            },
+            "valueSchema" : {
+              "type" : "STRING",
+              "isOptional" : false
+            }
           }
         }
       },
@@ -287,64 +353,120 @@
           "type" : "INT64",
           "version" : 1,
           "isOptional" : true
-        },
-        "storage" : 1493195158000
+        }
       }, {
         "name" : "facility",
         "schema" : {
           "doc" : "The facility of the message.",
           "type" : "INT32",
           "isOptional" : true
-        },
-        "storage" : 16
+        }
       }, {
         "name" : "host",
         "schema" : {
           "doc" : "The host of the message.",
           "type" : "STRING",
           "isOptional" : true
-        },
-        "storage" : "filterlog"
+        }
       }, {
         "name" : "level",
         "schema" : {
           "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
           "type" : "INT32",
           "isOptional" : true
-        },
-        "storage" : 6
+        }
       }, {
         "name" : "message",
         "schema" : {
-          "doc" : "The text for the message.",
+          "doc" : "Unparsed version of the message.",
           "type" : "STRING",
           "isOptional" : true
-        },
-        "storage" : "filterlog: 5,16777216,,1000000003,igb1,match,block,in,6,0x00,0x00000,255,ICMPv6,58,32,2605:6000:c00:96::1,ff02::1:ffac:f98,"
+        }
       }, {
-        "name" : "charset",
+        "name" : "cefVersion",
         "schema" : {
-          "doc" : "The character set of the message.",
-          "type" : "STRING",
-          "isOptional" : true
+          "doc" : "Version of CEF the message is using.",
+          "type" : "INT32",
+          "isOptional" : false
         },
-        "storage" : "utf-8"
+        "storage" : 0
       }, {
-        "name" : "remote_address",
+        "name" : "deviceVendor",
         "schema" : {
-          "doc" : "The ip address of the host that sent the syslog message.",
+          "doc" : "Vendor of the device that logged the message.",
           "type" : "STRING",
-          "isOptional" : true
+          "isOptional" : false
         },
-        "storage" : "/10.10.0.1:514"
+        "storage" : "ArcSight"
       }, {
-        "name" : "hostname",
+        "name" : "deviceProduct",
         "schema" : {
-          "doc" : "The reverse DNS of the `remote_address` field.",
+          "doc" : "The product that logged the message.",
           "type" : "STRING",
-          "isOptional" : true
+          "isOptional" : false
         },
-        "storage" : "vpn.example.com"
+        "storage" : "Logger"
+      }, {
+        "name" : "deviceVersion",
+        "schema" : {
+          "doc" : "The version of the device that is logging the message.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "storage" : "5.0.0.5355.2"
+      }, {
+        "name" : "deviceEventClassId",
+        "schema" : {
+          "doc" : "The internal event id for the message.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "storage" : "sensor:115"
+      }, {
+        "name" : "name",
+        "schema" : {
+          "doc" : "Name of the event. This is typically a short description.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "storage" : "Logger Internal Event"
+      }, {
+        "name" : "severity",
+        "schema" : {
+          "doc" : "The severity of the message.",
+          "type" : "STRING",
+          "isOptional" : false
+        },
+        "storage" : "1"
+      }, {
+        "name" : "extensions",
+        "schema" : {
+          "doc" : "Key value pairs of any extensions to the message.",
+          "type" : "MAP",
+          "isOptional" : true,
+          "keySchema" : {
+            "type" : "STRING",
+            "isOptional" : false
+          },
+          "valueSchema" : {
+            "type" : "STRING",
+            "isOptional" : false
+          }
+        },
+        "storage" : {
+          "cat" : "/Monitor/Sensor/Fan5",
+          "cs2" : "Current Value",
+          "cnt" : "1",
+          "dvc" : "10.0.0.1",
+          "cs3" : "Ok",
+          "cs1" : "null",
+          "type" : "0",
+          "cs1Label" : "unit",
+          "rt" : "1305034099211",
+          "cs3Label" : "Status",
+          "cn1Label" : "value",
+          "cs2Label" : "timeframe"
+        }
       } ]
     },
     "timestamp" : 1493195158000

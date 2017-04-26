@@ -145,7 +145,7 @@
           "type" : "STRING",
           "isOptional" : true
         },
-        "storage" : "filterlog: 5,16777216,,1000000003,igb1,match,block,in,6,0x00,0x00000,255,ICMPv6,58,32,2605:6000:c00:96::1,ff02::1:ffac:f98,"
+        "storage" : "dhcpd: DHCPACK on 10.10.0.10 to 00:26:ab:fb:27:dc via igb2"
       }, {
         "name" : "charset",
         "schema" : {
@@ -320,7 +320,7 @@
           "type" : "STRING",
           "isOptional" : true
         },
-        "storage" : "filterlog: 5,16777216,,1000000003,igb1,match,block,in,6,0x00,0x00000,255,ICMPv6,58,32,2605:6000:c00:96::1,ff02::1:ffac:f98,"
+        "storage" : "dhcpd: DHCPACK on 10.10.0.10 to 00:26:ab:fb:27:dc via igb2"
       }, {
         "name" : "charset",
         "schema" : {

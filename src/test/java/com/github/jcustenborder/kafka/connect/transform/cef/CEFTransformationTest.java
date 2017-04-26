@@ -17,7 +17,9 @@ package com.github.jcustenborder.kafka.connect.transform.cef;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.jcustenborder.kafka.connect.utils.jackson.ObjectMapperFactory;
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Multiset;
 import org.apache.kafka.connect.connector.ConnectRecord;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaBuilder;
@@ -35,6 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
@@ -122,37 +125,73 @@ public class CEFTransformationTest {
 
   @Disabled
   @Test
-  public void foo() throws IOException {
-    TestCase testCase = new TestCase();
-    Struct valueInput = new Struct(VALUE_SCHEMA)
-        .put("date", new Date(1493195158000L))
-        .put("facility", 16)
-        .put("host", "filterlog")
-        .put("level", 6)
-        .put("message", "CEF:0|Security|threatmanager|1.0|100|worm successfully stopped|10|src=10.0.0.1 dst=2.1.2.2 spt=1232")
-        .put("charset", "utf-8")
-        .put("remote_address", "/10.10.0.1:514")
-        .put("hostname", "vpn.example.com");
+  public void generate() throws IOException {
 
-
-    testCase.input = new SourceRecord(
-        ImmutableMap.of(),
-        ImmutableMap.of(),
-        "syslog",
-        null,
-        null,
-        null,
-        valueInput.schema(),
-        valueInput,
-        1493195158000L
+    List<String> messages = Arrays.asList(
+        "CEF:0|Security|threatmanager|1.0|100|worm successfully stopped|10|src=10.0.0.1 dst=2.1.2.2 spt=1232",
+        "CEF:0|security|threatmanager|1.0|100|detected a \\| in message|10|src=10.0.0.1 act=blocked a | dst=1.1.1.1",
+        "CEF:0|security|threatmanager|1.0|100|detected a \\ in packet|10|src=10.0.0.1 act=blocked a \\ dst=1.1.1.1",
+        "CEF:0|security|threatmanager|1.0|100|detected a = in message|10|src=10.0.0.1 act=blocked a \\= dst=1.1.1.1",
+        "CEF:0|ArcSight|Logger|5.0.0.5355.2|sensor:115|Logger Internal Event|1|cat=/Monitor/Sensor/Fan5 cs2=Current Value cnt=1 dvc=10.0.0.1 cs3=Ok cs1=null type=0 cs1Label=unit rt=1305034099211 cs3Label=Status cn1Label=value cs2Label=timeframe",
+        "CEF:0|Trend Micro Inc.|OSSEC HIDS|v2.5.1|5302|User missed the password to change UID to root.|9|dvc=ubuntusvr cs2=ubuntusvr->/var/log/auth.log cs2Label=Location src= suser=root msg=May 11 21:16:05 ubuntusvr su[24120]: - /dev/pts/1 xavier:root",
+        "CEF:0|security|threatmanager|1.0|100|Detected a threat. No action needed.|10|src=10.0.0.1 msg=Detected a threat.\\n No action needed.",
+        "CEF:0|security|threatmanager|1.0|100|Detected a threat. No action needed.|10",
+        "filterlog: 5,16777216,,1000000003,igb1,match,block,in,6,0x00,0x00000,255,ICMPv6,58,32,2605:6000:c00:96::1,ff02::1:ffac:f98,",
+        "dhcpd: DHCPACK on 10.10.0.10 to 00:26:ab:fb:27:dc via igb2",
+        "dhcpd: DHCPREQUEST for 10.10.0.10 from 00:26:ab:fb:27:dc via igb2",
+        "dhcpleases: Sending HUP signal to dns daemon(69876)"
     );
-    testCase.expected = (SourceRecord) this.transformation.apply(testCase.input);
-    ((Struct)testCase.expected.value()).validate();
 
-    File file = new File("/Users/jeremy/source/opensource/kafka-connect/transforms/kafka-connect-transform-cef/src/test/resources/com/github/jcustenborder/kafka/connect/transform/cef/records/CEF0001.json");
+    Multiset<String> counts = HashMultiset.create();
 
-    ObjectMapperFactory.INSTANCE.writeValue(file, testCase);
+    for (String message : messages) {
+      TestCase testCase = new TestCase();
+      Struct valueInput = new Struct(VALUE_SCHEMA)
+          .put("date", new Date(1493195158000L))
+          .put("facility", 16)
+          .put("host", "filterlog")
+          .put("level", 6)
+          .put("message", message)
+          .put("charset", "utf-8")
+          .put("remote_address", "/10.10.0.1:514")
+          .put("hostname", "vpn.example.com");
 
+
+      testCase.input = new SourceRecord(
+          ImmutableMap.of(),
+          ImmutableMap.of(),
+          "syslog",
+          null,
+          null,
+          null,
+          valueInput.schema(),
+          valueInput,
+          1493195158000L
+      );
+
+
+      String fileNameFormat;
+
+      try {
+
+        testCase.expected = (SourceRecord) this.transformation.apply(testCase.input);
+        ((Struct) testCase.expected.value()).validate();
+        fileNameFormat = "CEF%04d.json";
+      } catch (IllegalStateException ex) {
+        fileNameFormat = "NotCEF%04d.json";
+        testCase.expected = testCase.input;
+      }
+      counts.add(fileNameFormat);
+      int testNumber = counts.count(fileNameFormat);
+
+      File root = new File("src/test/resources/com/github/jcustenborder/kafka/connect/transform/cef/records");
+      String filename = String.format(fileNameFormat, testNumber);
+
+      File file = new File(root, filename);
+
+      ObjectMapperFactory.INSTANCE.writeValue(file, testCase);
+
+    }
   }
 
 }
