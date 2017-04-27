@@ -11,6 +11,11 @@ transforms.ceftransformation.type=com.github.jcustenborder.kafka.connect.transfo
 # Set these required values
 ```
 
+| Name             | Description                                                  | Type   | Default | Valid Values | Importance |
+|------------------|--------------------------------------------------------------|--------|---------|--------------|------------|
+| field.message    | The field that stores the message.                           | string | message |              | high       |
+| topic.cef.suffix | The suffix to append to the topic when CEF data is detected. | string | .cef    |              | high       |
+
 
 # Schemas
 
