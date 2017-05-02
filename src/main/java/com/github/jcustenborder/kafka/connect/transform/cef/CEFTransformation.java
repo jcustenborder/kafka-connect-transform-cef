@@ -86,7 +86,7 @@ public class CEFTransformation<R extends ConnectRecord<R>> implements Transforma
 
     return record.newRecord(
         record.topic() + this.config.topicSuffix,
-        record.kafkaPartition(),
+        null,
         record.keySchema(),
         record.key(),
         outputStruct.schema(),
