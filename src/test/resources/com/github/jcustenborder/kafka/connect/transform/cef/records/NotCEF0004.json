@@ -1,0 +1,352 @@
+{
+  "input" : {
+    "sourcePartition" : { },
+    "sourceOffset" : { },
+    "topic" : "syslog",
+    "valueSchema" : {
+      "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
+      "doc" : "This schema represents a syslog message that is written to Kafka.",
+      "type" : "STRUCT",
+      "isOptional" : false,
+      "fieldSchemas" : {
+        "date" : {
+          "name" : "org.apache.kafka.connect.data.Timestamp",
+          "doc" : "The timestamp of the message.",
+          "type" : "INT64",
+          "version" : 1,
+          "isOptional" : true
+        },
+        "facility" : {
+          "doc" : "The facility of the message.",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "host" : {
+          "doc" : "The host of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "level" : {
+          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "message" : {
+          "doc" : "The text for the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "charset" : {
+          "doc" : "The character set of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "remote_address" : {
+          "doc" : "The ip address of the host that sent the syslog message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "hostname" : {
+          "doc" : "The reverse DNS of the `remote_address` field.",
+          "type" : "STRING",
+          "isOptional" : true
+        }
+      }
+    },
+    "value" : {
+      "schema" : {
+        "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
+        "doc" : "This schema represents a syslog message that is written to Kafka.",
+        "type" : "STRUCT",
+        "isOptional" : false,
+        "fieldSchemas" : {
+          "date" : {
+            "name" : "org.apache.kafka.connect.data.Timestamp",
+            "doc" : "The timestamp of the message.",
+            "type" : "INT64",
+            "version" : 1,
+            "isOptional" : true
+          },
+          "facility" : {
+            "doc" : "The facility of the message.",
+            "type" : "INT32",
+            "isOptional" : true
+          },
+          "host" : {
+            "doc" : "The host of the message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "level" : {
+            "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+            "type" : "INT32",
+            "isOptional" : true
+          },
+          "message" : {
+            "doc" : "The text for the message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "charset" : {
+            "doc" : "The character set of the message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "remote_address" : {
+            "doc" : "The ip address of the host that sent the syslog message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "hostname" : {
+            "doc" : "The reverse DNS of the `remote_address` field.",
+            "type" : "STRING",
+            "isOptional" : true
+          }
+        }
+      },
+      "fieldValues" : [ {
+        "name" : "date",
+        "schema" : {
+          "name" : "org.apache.kafka.connect.data.Timestamp",
+          "doc" : "The timestamp of the message.",
+          "type" : "INT64",
+          "version" : 1,
+          "isOptional" : true
+        },
+        "storage" : 1493195158000
+      }, {
+        "name" : "facility",
+        "schema" : {
+          "doc" : "The facility of the message.",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "storage" : 16
+      }, {
+        "name" : "host",
+        "schema" : {
+          "doc" : "The host of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "filterlog"
+      }, {
+        "name" : "level",
+        "schema" : {
+          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "storage" : 6
+      }, {
+        "name" : "message",
+        "schema" : {
+          "doc" : "The text for the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "dhcpleases: Sending HUP signal to dns daemon(69876)"
+      }, {
+        "name" : "charset",
+        "schema" : {
+          "doc" : "The character set of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "utf-8"
+      }, {
+        "name" : "remote_address",
+        "schema" : {
+          "doc" : "The ip address of the host that sent the syslog message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "/10.10.0.1:514"
+      }, {
+        "name" : "hostname",
+        "schema" : {
+          "doc" : "The reverse DNS of the `remote_address` field.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "vpn.example.com"
+      } ]
+    },
+    "timestamp" : 1493195158000
+  },
+  "expected" : {
+    "sourcePartition" : { },
+    "sourceOffset" : { },
+    "topic" : "syslog",
+    "valueSchema" : {
+      "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
+      "doc" : "This schema represents a syslog message that is written to Kafka.",
+      "type" : "STRUCT",
+      "isOptional" : false,
+      "fieldSchemas" : {
+        "date" : {
+          "name" : "org.apache.kafka.connect.data.Timestamp",
+          "doc" : "The timestamp of the message.",
+          "type" : "INT64",
+          "version" : 1,
+          "isOptional" : true
+        },
+        "facility" : {
+          "doc" : "The facility of the message.",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "host" : {
+          "doc" : "The host of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "level" : {
+          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "message" : {
+          "doc" : "The text for the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "charset" : {
+          "doc" : "The character set of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "remote_address" : {
+          "doc" : "The ip address of the host that sent the syslog message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "hostname" : {
+          "doc" : "The reverse DNS of the `remote_address` field.",
+          "type" : "STRING",
+          "isOptional" : true
+        }
+      }
+    },
+    "value" : {
+      "schema" : {
+        "name" : "com.github.jcustenborder.kafka.connect.syslog.SyslogValue",
+        "doc" : "This schema represents a syslog message that is written to Kafka.",
+        "type" : "STRUCT",
+        "isOptional" : false,
+        "fieldSchemas" : {
+          "date" : {
+            "name" : "org.apache.kafka.connect.data.Timestamp",
+            "doc" : "The timestamp of the message.",
+            "type" : "INT64",
+            "version" : 1,
+            "isOptional" : true
+          },
+          "facility" : {
+            "doc" : "The facility of the message.",
+            "type" : "INT32",
+            "isOptional" : true
+          },
+          "host" : {
+            "doc" : "The host of the message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "level" : {
+            "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+            "type" : "INT32",
+            "isOptional" : true
+          },
+          "message" : {
+            "doc" : "The text for the message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "charset" : {
+            "doc" : "The character set of the message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "remote_address" : {
+            "doc" : "The ip address of the host that sent the syslog message.",
+            "type" : "STRING",
+            "isOptional" : true
+          },
+          "hostname" : {
+            "doc" : "The reverse DNS of the `remote_address` field.",
+            "type" : "STRING",
+            "isOptional" : true
+          }
+        }
+      },
+      "fieldValues" : [ {
+        "name" : "date",
+        "schema" : {
+          "name" : "org.apache.kafka.connect.data.Timestamp",
+          "doc" : "The timestamp of the message.",
+          "type" : "INT64",
+          "version" : 1,
+          "isOptional" : true
+        },
+        "storage" : 1493195158000
+      }, {
+        "name" : "facility",
+        "schema" : {
+          "doc" : "The facility of the message.",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "storage" : 16
+      }, {
+        "name" : "host",
+        "schema" : {
+          "doc" : "The host of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "filterlog"
+      }, {
+        "name" : "level",
+        "schema" : {
+          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "type" : "INT32",
+          "isOptional" : true
+        },
+        "storage" : 6
+      }, {
+        "name" : "message",
+        "schema" : {
+          "doc" : "The text for the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "dhcpleases: Sending HUP signal to dns daemon(69876)"
+      }, {
+        "name" : "charset",
+        "schema" : {
+          "doc" : "The character set of the message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "utf-8"
+      }, {
+        "name" : "remote_address",
+        "schema" : {
+          "doc" : "The ip address of the host that sent the syslog message.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "/10.10.0.1:514"
+      }, {
+        "name" : "hostname",
+        "schema" : {
+          "doc" : "The reverse DNS of the `remote_address` field.",
+          "type" : "STRING",
+          "isOptional" : true
+        },
+        "storage" : "vpn.example.com"
+      } ]
+    },
+    "timestamp" : 1493195158000
+  }
+}
