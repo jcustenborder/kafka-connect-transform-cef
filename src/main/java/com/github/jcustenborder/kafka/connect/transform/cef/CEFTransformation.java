@@ -35,8 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-@Description("Transformation to convert a standard [Syslog](https://en.wikipedia.org/wiki/Syslog) message to a " +
-    "[Common Event Format (CEF)](https://www.protect724.hpe.com/docs/DOC-1072) Syslog struct.")
+@Description("Transformation to convert a standard `Syslog <https://en.wikipedia.org/wiki/Syslog>`_ message to a " +
+    "`Common Event Format (CEF) <https://www.protect724.hpe.com/docs/DOC-1072>`_ Syslog struct.")
 public class CEFTransformation<R extends ConnectRecord<R>> implements Transformation<R> {
   private static final Logger log = LoggerFactory.getLogger(CEFTransformation.class);
   CEFTransformationConfig config;
