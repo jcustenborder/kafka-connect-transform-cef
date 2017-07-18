@@ -27,7 +27,7 @@
           "isOptional" : true
         },
         "level" : {
-          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "doc" : "The level of the syslog message as defined by :rfc:`5424`.",
           "type" : "INT32",
           "isOptional" : true
         },
@@ -78,7 +78,7 @@
             "isOptional" : true
           },
           "level" : {
-            "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+            "doc" : "The level of the syslog message as defined by :rfc:`5424`.",
             "type" : "INT32",
             "isOptional" : true
           },
@@ -133,7 +133,7 @@
       }, {
         "name" : "level",
         "schema" : {
-          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "doc" : "The level of the syslog message as defined by :rfc:`5424`.",
           "type" : "INT32",
           "isOptional" : true
         },
@@ -202,7 +202,7 @@
           "isOptional" : true
         },
         "level" : {
-          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "doc" : "The level of the syslog message as defined by :rfc:`5424`.",
           "type" : "INT32",
           "isOptional" : true
         },
@@ -253,7 +253,7 @@
             "isOptional" : true
           },
           "level" : {
-            "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+            "doc" : "The level of the syslog message as defined by :rfc:`5424`.",
             "type" : "INT32",
             "isOptional" : true
           },
@@ -308,7 +308,7 @@
       }, {
         "name" : "level",
         "schema" : {
-          "doc" : "The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)",
+          "doc" : "The level of the syslog message as defined by :rfc:`5424`.",
           "type" : "INT32",
           "isOptional" : true
         },

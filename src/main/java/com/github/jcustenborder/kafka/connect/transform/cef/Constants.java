@@ -51,7 +51,7 @@ class Constants {
       )
       .field(
           LEVEL,
-          SchemaBuilder.int32().optional().doc("The level of the syslog message as defined by [rfc5424](https://tools.ietf.org/html/rfc5424)").build()
+          SchemaBuilder.int32().optional().doc("The level of the syslog message as defined by :rfc:`5424`.").build()
       )
       .field(
           MESSAGE,
