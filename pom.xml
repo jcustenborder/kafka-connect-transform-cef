@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.github.jcustenborder.kafka.connect</groupId>
     <artifactId>kafka-connect-parent</artifactId>
-    <version>0.10.2.1-cp2</version>
+    <version>0.11.0.0-cp5</version>
   </parent>
   <artifactId>kafka-connect-transform-cef</artifactId>
   <version>0.1.0-SNAPSHOT</version>
@@ -70,7 +70,7 @@
     <dependency>
       <groupId>com.github.jcustenborder.kafka.connect</groupId>
       <artifactId>connect-utils-testing-data</artifactId>
-      <version>[0.2.33,0.2.1000)</version>
+      <version>${connect-utils.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
