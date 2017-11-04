@@ -19,3 +19,4 @@ The CEF transformation is used to convert syslog messages to CEF message structu
     :hidden:
 
     schemas
+    info
